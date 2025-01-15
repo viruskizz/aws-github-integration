@@ -27,4 +27,4 @@ jobs:
           sam deploy \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
-            --parameter-overrides ParameterKey=GITHUB_COMMIT,ParameterValue=${{ github.sha }}
+            --parameter-overrides ParameterKey=GithubCommit,ParameterValue=${{ github.sha }}
