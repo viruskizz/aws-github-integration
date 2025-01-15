@@ -16,6 +16,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             statusCode: 200,
             body: JSON.stringify({
                 message: 'hello world',
+                commit: process.env.GITHUB_COMMIT || 'NONE'
             }),
         };
     } catch (err) {

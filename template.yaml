@@ -4,11 +4,17 @@ Description: >
   sam-app
 
   Sample SAM Template for sam-app
+Parameters:
+  GITHUB_COMMIT:
+    Type: String
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
+    Environment:
+      Variables:
+        GITHUB_COMMIT: !Ref GITHUB_COMMIT
 
     # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
     LoggingConfig:
