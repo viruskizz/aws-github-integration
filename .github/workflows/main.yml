@@ -7,23 +7,9 @@ env:
 
 permissions:
   id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  contents: read    # This is required for actions/
+
 jobs:
-  AssumeRoleAndCallIdentity:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1.7.0
-        with:
-          role-to-assume: arn:aws:iam::442426892964:role/sam-github-actions
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{env.AWS_REGION}}
-      # Hello from AWS: WhoAmI
-      - name: Sts GetCallerIdentity
-        run: |
-          aws sts get-caller-identity
   Deploy:
     runs-on: ubuntu-latest
     steps:
@@ -32,17 +18,15 @@ jobs:
         with:
           use-installer: true
           token: ${{ secrets.GITHUB_TOKEN }}
-      # - uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ env.AWS_REGION }}
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::442426892964:role/sam-github-actions
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          role-to-assume: ${{ env.ROLE_ARN }}
+          role-session-name: github-oidc
           aws-region: ${{env.AWS_REGION}}
+      - name: Sts GetCallerIdentity
+        run: |
+          aws sts get-caller-identity
       - name: SAM Validate
         run: |
           sam validate
