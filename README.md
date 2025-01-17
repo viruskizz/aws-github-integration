@@ -20,106 +20,106 @@ This project is serverless that build by AWS SAM tools
 Github Actions will assume IAM role with OIDC identity. To create a role follow these.
 
 1. Create `permission.json`
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AmazonAPIGatewayAdministrator",
-            "Effect": "Allow",
-            "Action": [
-                "apigateway:*"
-            ],
-            "Resource": "arn:aws:apigateway:*::/*"
-        },
-        {
-            "Sid": "AmazonS3FullAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:*",
-                "s3-object-lambda:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AWSCloudFormationFullAccess",
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AWSLambdaFullAccess1",
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:DescribeStacks",
-                "cloudformation:ListStackResources",
-                "cloudwatch:ListMetrics",
-                "cloudwatch:GetMetricData",
-                "ec2:DescribeSecurityGroups",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeVpcs",
-                "kms:ListAliases",
-                "iam:GetPolicy",
-                "iam:GetPolicyVersion",
-                "iam:GetRole",
-                "iam:GetRolePolicy",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListRolePolicies",
-                "iam:ListRoles",
-                "lambda:*",
-                "logs:DescribeLogGroups",
-                "states:DescribeStateMachine",
-                "states:ListStateMachines",
-                "tag:GetResources",
-                "xray:GetTraceSummaries",
-                "xray:BatchGetTraces"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AWSLambdaFullAccess2",
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "iam:PassedToService": "lambda.amazonaws.com"
-                }
-            }
-        },
-        {
-            "Sid": "AWSLambdaFullAccess3",
-            "Effect": "Allow",
-            "Action": [
-                "logs:DescribeLogStreams",
-                "logs:GetLogEvents",
-                "logs:FilterLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
-        },
-        {
-            "Sid": "IAMFullAccess",
-            "Effect": "Allow",
-            "Action": [
-                "iam:*",
-                "organizations:DescribeAccount",
-                "organizations:DescribeOrganization",
-                "organizations:DescribeOrganizationalUnit",
-                "organizations:DescribePolicy",
-                "organizations:ListChildren",
-                "organizations:ListParents",
-                "organizations:ListPoliciesForTarget",
-                "organizations:ListRoots",
-                "organizations:ListPolicies",
-                "organizations:ListTargetsForPolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
+  ```json
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "AmazonAPIGatewayAdministrator",
+              "Effect": "Allow",
+              "Action": [
+                  "apigateway:*"
+              ],
+              "Resource": "arn:aws:apigateway:*::/*"
+          },
+          {
+              "Sid": "AmazonS3FullAccess",
+              "Effect": "Allow",
+              "Action": [
+                  "s3:*",
+                  "s3-object-lambda:*"
+              ],
+              "Resource": "*"
+          },
+          {
+              "Sid": "AWSCloudFormationFullAccess",
+              "Effect": "Allow",
+              "Action": [
+                  "cloudformation:*"
+              ],
+              "Resource": "*"
+          },
+          {
+              "Sid": "AWSLambdaFullAccess1",
+              "Effect": "Allow",
+              "Action": [
+                  "cloudformation:DescribeStacks",
+                  "cloudformation:ListStackResources",
+                  "cloudwatch:ListMetrics",
+                  "cloudwatch:GetMetricData",
+                  "ec2:DescribeSecurityGroups",
+                  "ec2:DescribeSubnets",
+                  "ec2:DescribeVpcs",
+                  "kms:ListAliases",
+                  "iam:GetPolicy",
+                  "iam:GetPolicyVersion",
+                  "iam:GetRole",
+                  "iam:GetRolePolicy",
+                  "iam:ListAttachedRolePolicies",
+                  "iam:ListRolePolicies",
+                  "iam:ListRoles",
+                  "lambda:*",
+                  "logs:DescribeLogGroups",
+                  "states:DescribeStateMachine",
+                  "states:ListStateMachines",
+                  "tag:GetResources",
+                  "xray:GetTraceSummaries",
+                  "xray:BatchGetTraces"
+              ],
+              "Resource": "*"
+          },
+          {
+              "Sid": "AWSLambdaFullAccess2",
+              "Effect": "Allow",
+              "Action": "iam:PassRole",
+              "Resource": "*",
+              "Condition": {
+                  "StringEquals": {
+                      "iam:PassedToService": "lambda.amazonaws.com"
+                  }
+              }
+          },
+          {
+              "Sid": "AWSLambdaFullAccess3",
+              "Effect": "Allow",
+              "Action": [
+                  "logs:DescribeLogStreams",
+                  "logs:GetLogEvents",
+                  "logs:FilterLogEvents"
+              ],
+              "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
+          },
+          {
+              "Sid": "IAMFullAccess",
+              "Effect": "Allow",
+              "Action": [
+                  "iam:*",
+                  "organizations:DescribeAccount",
+                  "organizations:DescribeOrganization",
+                  "organizations:DescribeOrganizationalUnit",
+                  "organizations:DescribePolicy",
+                  "organizations:ListChildren",
+                  "organizations:ListParents",
+                  "organizations:ListPoliciesForTarget",
+                  "organizations:ListRoots",
+                  "organizations:ListPolicies",
+                  "organizations:ListTargetsForPolicy"
+              ],
+              "Resource": "*"
+          }
+      ]
+  }
+  ```
 
 2. create `trust-relationship.json`
 ```json
@@ -148,19 +148,19 @@ Github Actions will assume IAM role with OIDC identity. To create a role follow 
 
 3. Create IAM Role with OIDC
 
-Create Policy
-```bash
-aws iam create-policy \
-    --policy-name SAMDeploymentPolicy \
-    --policy-document file://policy.json
-```
+- Create Policy
+  ```bash
+  aws iam create-policy \
+      --policy-name SAMDeploymentPolicy \
+      --policy-document file://policy.json
+  ```
 
-Create role
-```bash
-aws iam create-role \
-    --role-name github-oidc-role \
-    --assume-role-policy-document file://trust-relationship.json
-```
+- Create role
+  ```bash
+  aws iam create-role \
+      --role-name github-oidc-role \
+      --assume-role-policy-document file://trust-relationship.json
+  ```
 
 Attach policy to role
 ```bash
@@ -173,9 +173,9 @@ aws iam attach-role-policy \
 
 1. Add role arn that created to Github secret
 
-```txt
-ROLE_ARN: <role_arn>
-```
+  ```txt
+  ROLE_ARN: <role_arn>
+  ```
 
 2. Add `.github/workflows/main.yml`
 
