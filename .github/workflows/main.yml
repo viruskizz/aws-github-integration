@@ -1,7 +1,7 @@
 on:
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main
 env:
   AWS_REGION : "ap-southeast-1"
 
